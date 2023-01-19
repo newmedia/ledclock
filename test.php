@@ -114,6 +114,8 @@ class clock {
             'd' => [1,2,3,4,7],
             'E' => [1,2,4,5,6],
             'e' => [1,2,4,5,6,7],
+            'f' => [1,4,5,6],
+            'F' => [1,4,5,6],
             'g' => [2,3,4,5,6,7],
             'i' => [1],
             'I' => [1,5],
@@ -121,6 +123,10 @@ class clock {
             'o' => [1,2,3,4],
             'r' => [1,4],
             'R' => [1,5,6],
+            'S' => [2,3,4,5,6],
+            's' => [2,3,4,5,6],
+            't' => [1,2,4,5],
+            'T' => [1,2,4,5],
 
         ];
 
@@ -155,11 +161,13 @@ $clock = new clock(new WLED('192.168.1.201'));
 
 $red = 'FF0000';
 $green = '00FF00';
+$blue = '0000FF';
 
 print_r($clock->off());
 print_r($clock->on());
 //print_r($clock->setText('bAd', $red));
 //print_r($clock->setText('good', $green));
 //print_r($clock->setText('ERIC', $green));
-print_r($clock->setText('eric', $green));
+//print_r($clock->setText('eric', $blue));
+print_r($clock->setText('stEf', $blue));
 
