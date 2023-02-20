@@ -65,6 +65,16 @@ class WLED
     {
         return $this->post('state', $data);
     }
+
+    public function getFxList(): array
+    {
+        $effects = $this->effects();
+        $fxList = [];
+        foreach ($effects as $key => $effect) {
+            $fxList[$key] = $effect;
+        }
+        return $fxList;
+    }
 }
 
 class clock {
@@ -117,16 +127,48 @@ class clock {
             'f' => [1,4,5,6],
             'F' => [1,4,5,6],
             'g' => [2,3,4,5,6,7],
+            'h' => [1,3,4,5],
+            'H' => [1,3,4,5,7],
             'i' => [1],
             'I' => [1,5],
+            'j' => [2,3],
+            'J' => [2,3,7],
+            'k' => [1,3,4,5,7],
+            'K' => [1,3,4,5,7],
+            'l' => [1,5],
+            'L' => [1,2,5],
+            'm' => [1,3,4],
+            'M' => [1,3,5,6,7],
+            'n' => [1,3,4],
+            'N' => [1,3,5,6,7],
             'O' => [1,2,3,5,6,7],
             'o' => [1,2,3,4],
+            'P' => [1,4,5,6,7],
+            'p' => [1,4,5,6,7],
+            'q' => [3,4,5,6,7],
+            'Q' => [3,4,5,6,7],
             'r' => [1,4],
             'R' => [1,5,6],
             'S' => [2,3,4,5,6],
             's' => [2,3,4,5,6],
             't' => [1,2,4,5],
             'T' => [1,2,4,5],
+            'u' => [1,2,3],
+            'U' => [1,2,3,5,7],
+            'v' => [1,2,3],
+            'V' => [1,2,3,5,7],
+            'w' => [1,2,3],
+            'W' => [1,2,3,5,7],
+            '0' => [1,2,3,5,6,7],
+            '1' => [1,5],
+            '2' => [1,2,4,6,7],
+            '3' => [2,3,4,6,7],
+            '4' => [3,4,5,7],
+            '5' => [2,3,4,5,6],
+            '6' => [1,2,3,4,5,6],
+            '7' => [3,6,7],
+            '8' => [1,2,3,4,5,6,7],
+            '9' => [2,3,4,5,6,7],
 
         ];
 
@@ -146,7 +188,7 @@ class clock {
         return $this->wled->set($body);
     }
 
-    public function setText(string $text, string $color): stdClass
+    public function setText(string $text, string $color): void
     {
         $text = str_split($text);
         $segmentId = 0;
@@ -155,19 +197,30 @@ class clock {
             $segmentId++;
         }
     }
+
+    public function setFx(int $fxId): void
+    {
+        $this->wled->set(['seg' => ['fx' => $fxId]]);
+    }
 }
 
-$clock = new clock(new WLED('192.168.1.201'));
+
+$wled = new WLED('192.168.188.54');
+
+$clock = new clock($wled);
 
 $red = 'FF0000';
 $green = '00FF00';
 $blue = '0000FF';
 
-print_r($clock->off());
-print_r($clock->on());
+print_r($wled->getFxList());
+
+$clock->off();
+$clock->on();
+$clock->setFx(44);
 //print_r($clock->setText('bAd', $red));
 //print_r($clock->setText('good', $green));
 //print_r($clock->setText('ERIC', $green));
 //print_r($clock->setText('eric', $blue));
-print_r($clock->setText('stEf', $blue));
+//print_r($clock->setText('stEf', $blue));
 
